@@ -69,23 +69,23 @@ Resources:
         UseCallerCredentials: false
       ServiceRoleArn: !GetAtt [ LambdaExecutionRole, Arn ]
 
-  # AppSyncResolverPeople:
-  #   Type: AWS::AppSync::Resolver
-  #   Properties:
-  #     ApiId: !GetAtt [ AppSyncAPI, ApiId ]
-  #     DataSourceName: !GetAtt [ chat_ds, Name ]
-  #     TypeName: Query
-  #     FieldName: people
-  #     RequestMappingTemplate: >
-  #       { 
-  #         "version": "2017-02-28",
-  #         "operation": "Scan",
-  #         "select": "ALL_ATTRIBUTES",
-  #         "limit": $util.defaultIfNull($ctx.args.limit, 20),
-  #         "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
-  #       }
-  #     ResponseMappingTemplate: >
-  #       $util.toJson($context.result)
+  AppSyncResolverPeople:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt [ AppSyncAPI, ApiId ]
+      DataSourceName: !GetAtt [ chat_ds, Name ]
+      TypeName: Query
+      FieldName: people
+      RequestMappingTemplate: >
+        { 
+          "version": "2017-02-28",
+          "operation": "Scan",
+          "select": "ALL_ATTRIBUTES",
+          "limit": $util.defaultIfNull($ctx.args.limit, 20),
+          "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+        }
+      ResponseMappingTemplate: >
+        $util.toJson($context.result)
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
