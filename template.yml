@@ -24,10 +24,25 @@ Globals:
       Role: !Ref CodeDeployRole
 
 Resources:
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - AttributeName: id
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+
   AppSyncAPI:
     Type: AWS::AppSync::GraphQLApi
     Properties:
-      Name: !Join [ -, [ ${ProjectId}, ${Stage} ] ] # !Sub '${ProjectId}-${Stage}'
+      Name: !Join [ -, [ !Sub '${ProjectId}', !Sub '${Stage}' ] ] # !Sub '${ProjectId}-${Stage}'
       AuthenticationType: AMAZON_COGNITO_USER_POOLS
       UserPoolConfig: 
         AwsRegion: us-east-1
