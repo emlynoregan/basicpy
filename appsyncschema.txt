@@ -12,7 +12,7 @@ type personPage {
 }
 
 type person {
-    pkey: Int!
+    pkey: String!
     created: Int!
     updated: Int!
     enabled: Boolean!

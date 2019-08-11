@@ -49,7 +49,7 @@ Resources:
       UserPoolConfig: 
         AwsRegion: us-east-1
         UserPoolId: us-east-1_HyhoVSR51
-        DefaultAction: DENY
+        DefaultAction: ALLOW
 
   AppSyncSchema:
     Type: AWS::AppSync::GraphQLSchema
@@ -68,7 +68,7 @@ Resources:
         AwsRegion: us-east-1
         TableName: chat
         UseCallerCredentials: false
-      ServiceRoleArn: !GetAtt [ LambdaExecutionRole, Arn ]
+      ServiceRoleArn: !GetAtt [ AppsyncDynamoRole, Arn ]
 
   AppSyncResolverPeople:
     Type: AWS::AppSync::Resolver
@@ -121,3 +121,18 @@ Resources:
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  AppsyncDynamoRole:
+    Description: Creating service role in IAM for AppSync to talk to Dynamo
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'Appsync-Dynamo-${ProjectId}-{Stage}'
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [appsync.amazonaws.com]
+          Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess'
