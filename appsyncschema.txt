@@ -14,4 +14,3 @@ type Person {
     displayname: String!
     contacts: [ Person! ]!
 }
-
