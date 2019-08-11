@@ -61,13 +61,13 @@ Resources:
     Type: AWS::AppSync::DataSource
     Properties:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
-      Name: chat_table
+      Name: chat
       Type: AMAZON_DYNAMODB
       DynamoDBConfig:
         AwsRegion: us-east-1
         TableName: chat
         UseCallerCredentials: false
-      ServiceRoleArn: !GetAtt [ Role, Arn ]
+      ServiceRoleArn: !GetAtt [ LambdaExecutionRole, Arn ]
 
   # AppSyncResolverPeople:
   #   Type: AWS::AppSync::Resolver
