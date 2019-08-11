@@ -57,7 +57,7 @@ Resources:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
       DefinitionS3Location: appsyncschema.txt
 
-  AppSyncDataSource:
+  chat_ds:
     Type: AWS::AppSync::DataSource
     Properties:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
@@ -67,6 +67,24 @@ Resources:
         AwsRegion: us-east-1
         TableName: chat
       ServiceRoleArn: !GetAtt [ Role, Arn ]
+
+  AppSyncResolverPeople:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt [ AppSyncAPI, ApiId ]
+      DataSourceName: !GetAtt [ chat_ds, Name ]
+      TypeName: Query
+      FieldName: people
+      RequestMappingTemplate: >
+        { 
+          "version": "2017-02-28",
+          "operation": "Scan",
+          "select": "ALL_ATTRIBUTES",
+          "limit": $util.defaultIfNull($ctx.args.limit, 20),
+          "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+        }
+      ResponseMappingTemplate: >
+        $util.toJson($context.result)
 
     # HelloWorld:
   #   Type: AWS::Serverless::Function
