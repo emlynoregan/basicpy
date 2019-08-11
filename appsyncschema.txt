@@ -1,3 +1,10 @@
+schema {
+	query: Query
+}
+
+type Query {
+}
+
 type Person {
     pkey: Int!
     created: Int!
@@ -7,3 +14,4 @@ type Person {
     displayname: String!
     contacts: [ Person! ]!
 }
+
