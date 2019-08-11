@@ -126,7 +126,7 @@ Resources:
     Description: Creating service role in IAM for AppSync to talk to Dynamo
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'Appsync-Dynamo-${ProjectId}-{Stage}'
+      RoleName: !Sub 'Appsync-Dynamo-${ProjectId}-${Stage}'
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
