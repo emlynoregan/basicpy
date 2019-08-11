@@ -57,6 +57,17 @@ Resources:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
       DefinitionS3Location: appsyncschema.txt
 
+  AppSyncDataSource:
+    Type: AWS::AppSync::DataSource
+    Properties:
+      ApiId: !GetAtt [ AppSyncAPI, ApiId ]
+      Name: chat_table
+      Type: AMAZON_DYNAMODB
+      DynamoDBConfig:
+        AwsRegion: us-east-1
+        TableName: chat
+      ServiceRoleArn: !GetAtt [ Role, Arn ]
+
     # HelloWorld:
   #   Type: AWS::Serverless::Function
   #   Properties:
