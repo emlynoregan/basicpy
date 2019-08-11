@@ -42,7 +42,7 @@ Resources:
   AppSyncAPI:
     Type: AWS::AppSync::GraphQLApi
     Properties:
-      Name: !Join [ -, [ !Sub '${ProjectId}', !Sub '${Stage}' ] ] # !Sub '${ProjectId}-${Stage}'
+      Name: !Join [ -, [ !Ref ProjectId, !Ref Stage ] ] # !Sub '${ProjectId}-${Stage}'
       AuthenticationType: AMAZON_COGNITO_USER_POOLS
       UserPoolConfig: 
         AwsRegion: us-east-1
