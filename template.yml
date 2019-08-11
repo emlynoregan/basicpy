@@ -48,6 +48,13 @@ Resources:
         AwsRegion: us-east-1
         UserPoolId: us-east-1_HyhoVSR51
         DefaultAction: DENY
+
+  AppSyncSchema:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties:
+      ApiId: !GetAtt [ AppSyncAPI, ApiId ]
+      DefinitionS3Location: appsyncschema.txt
+
     # HelloWorld:
   #   Type: AWS::Serverless::Function
   #   Properties:
