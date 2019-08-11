@@ -59,6 +59,7 @@ Resources:
 
   chatds:
     Type: AWS::AppSync::DataSource
+    DependsOn: AppSyncSchema
     Properties:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
       Name: chat
