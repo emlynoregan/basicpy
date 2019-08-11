@@ -68,44 +68,24 @@ Resources:
         TableName: chat
       ServiceRoleArn: !GetAtt [ Role, Arn ]
 
-  AppSyncResolverPeople:
-    Type: AWS::AppSync::Resolver
-    Properties:
-      ApiId: !GetAtt [ AppSyncAPI, ApiId ]
-      DataSourceName: !GetAtt [ chat_ds, Name ]
-      TypeName: Query
-      FieldName: people
-      RequestMappingTemplate: >
-        { 
-          "version": "2017-02-28",
-          "operation": "Scan",
-          "select": "ALL_ATTRIBUTES",
-          "limit": $util.defaultIfNull($ctx.args.limit, 20),
-          "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
-        }
-      ResponseMappingTemplate: >
-        $util.toJson($context.result)
-
-    # HelloWorld:
-  #   Type: AWS::Serverless::Function
+  # AppSyncResolverPeople:
+  #   Type: AWS::AppSync::Resolver
   #   Properties:
-  #     Handler: index.handler
-  #     Runtime: python3.7
-  #     Role:
-  #       Fn::GetAtt:
-  #       - LambdaExecutionRole
-  #       - Arn
-  #     Events:
-  #       GetEvent:
-  #         Type: Api
-  #         Properties:
-  #           Path: /
-  #           Method: get
-  #       PostEvent:
-  #         Type: Api
-  #         Properties:
-  #           Path: /
-  #           Method: post
+  #     ApiId: !GetAtt [ AppSyncAPI, ApiId ]
+  #     DataSourceName: !GetAtt [ chat_ds, Name ]
+  #     TypeName: Query
+  #     FieldName: people
+  #     RequestMappingTemplate: >
+  #       { 
+  #         "version": "2017-02-28",
+  #         "operation": "Scan",
+  #         "select": "ALL_ATTRIBUTES",
+  #         "limit": $util.defaultIfNull($ctx.args.limit, 20),
+  #         "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+  #       }
+  #     ResponseMappingTemplate: >
+  #       $util.toJson($context.result)
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
