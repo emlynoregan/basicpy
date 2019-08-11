@@ -57,7 +57,7 @@ Resources:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
       DefinitionS3Location: appsyncschema.txt
 
-  chat_ds:
+  chat-ds:
     Type: AWS::AppSync::DataSource
     Properties:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
