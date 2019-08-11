@@ -32,6 +32,7 @@ Resources:
       UserPoolConfig: 
         AwsRegion: us-east-1
         UserPoolId: us-east-1_HyhoVSR51
+        DefaultAction: DENY
     # HelloWorld:
   #   Type: AWS::Serverless::Function
   #   Properties:
