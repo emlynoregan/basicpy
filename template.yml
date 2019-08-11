@@ -28,16 +28,17 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties: 
       AttributeDefinitions: 
-        - AttributeName: id
+        - AttributeName: pkey
+          AttributeType: S
+        - AttributeName: skey
           AttributeType: S
       KeySchema: 
-        - AttributeName: id
+        - AttributeName: pkey
           KeyType: HASH
-      ProvisionedThroughput: 
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
-      StreamSpecification:
-        StreamViewType: NEW_IMAGE
+        - AttributeName: skey
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      
 
   AppSyncAPI:
     Type: AWS::AppSync::GraphQLApi
