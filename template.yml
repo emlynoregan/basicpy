@@ -75,7 +75,7 @@ Resources:
       ApiId: !GetAtt [ AppSyncAPI, ApiId ]
       DataSourceName: !GetAtt [ chatds, Name ]
       TypeName: Query
-      FieldName: people
+      FieldName: listPersons
       RequestMappingTemplate: >
         { 
           "version": "2017-02-28",

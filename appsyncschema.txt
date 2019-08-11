@@ -3,9 +3,15 @@ schema {
 }
 
 type Query {
+	listPersons(limit: Int, nextToken: String): personPage
 }
 
-type Person {
+type personPage {
+	items: [person]
+	nextToken: String
+}
+
+type person {
     pkey: Int!
     created: Int!
     updated: Int!
