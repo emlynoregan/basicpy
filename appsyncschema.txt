@@ -1,1 +1,9 @@
-# Hello AppSync
+type Person {
+    pkey: Int!
+    created: Int!
+    updated: Int!
+    enabled: Boolean!
+    authid: String
+    displayname: String!
+    contacts: [ Person! ]!
+}
