@@ -121,7 +121,7 @@ Resources:
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
-
+ 
   AppsyncDynamoRole:
     Description: Creating service role in IAM for AppSync to talk to Dynamo
     Type: AWS::IAM::Role
